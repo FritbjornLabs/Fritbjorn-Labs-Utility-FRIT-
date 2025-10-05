@@ -1,1 +1,26 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
+/**
+ * Fritbjorn Labs Utility Token (FRIT)
+ * - Name: "Fritbjorn Labs Utility"
+ * - Symbol: "FRIT"
+ * - Decimals: 18
+ * - Initial supply: 100,000,000 tokens (pass 100000000e18 to constructor)
+ * - Mintable by owner
+ * - Burnable by holders
+ */
+
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/v4.9.3/contracts/token/ERC20/ERC20.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/v4.9.3/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/v4.9.3/contracts/access/Ownable.sol";
+
+contract FritbjornLabsUtility is ERC20, ERC20Burnable, Ownable {
+    constructor(uint256 initialSupply) ERC20("Fritbjorn Labs Utility", "FRIT") {
+        _mint(msg.sender, initialSupply);
+    }
+
+    function mint(address to, uint256 amount) external onlyOwner {
+        _mint(to, amount);
+    }
+}
